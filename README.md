@@ -1,28 +1,51 @@
-## Usage
+# solid 指南
 
-```bash
-$ npm install # or pnpm install or yarn install
-```
+## solid 路由
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+### 嵌套路由和平铺子路由
 
-## Available Scripts
+嵌套路由和平铺子路由都是创建子路由的方式，但是效果和实现方式上有一定区别，并且有不同适用的场合。
 
-In the project directory, you can run:
+1. 嵌套路由:
 
-### `npm run dev`
+   - 需要在`children`中添加路由，避免了重复输入前缀
+   - 父路由组件和子路由组件会一同显示，父路由组件需要设置`props.children`参数，子组件会作为该参数值进行渲染
+   - 父路由本身会匹配到对应的子路由`/`，因此需要添加路径为`/`的子路由才能匹配进父组件。
+   - 嵌套父路由如果未定义`component`，则会直接渲染子组件
 
-Runs the app in the development mode.<br>
-Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+2. 平铺子路由
 
-### `npm run build`
+   - 平铺子路由则是直接在最外层添加，不需要设置`children`
+   - 在只定义平铺子路由时，所谓的父路由可以自行定义，
+   - 平铺子路由只会渲染自身，和父路由无关
 
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
+总结，路由中只有叶子节点是可用的路由！！！
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+为了保证所有页面可以动态加载路由，需要有一个共同的首页。
 
-## Deployment
+### 组件 prop
 
-Learn more about deploying your application with the [documentations](https://vitejs.dev/guide/static-deploy.html)
+对于定义组件 `prop` 以下是我的规范：
+
+1. 所有 `prop` 都是可选的，类型为`普通类型`和`ISignal`的联合类型
+2. 当传递的 `prop` 为空时，生成对应的 `data` 项，这样在外部逻辑一致
+3. 接收的`prop`是一次性的，不追踪，也就是不使用`splitProps`进行处理。如果`prop`是可变的，需要传递`ISignal`类型
+
+### 动态路由
+
+动态路由是指根据不同的用户权限区分不同路由的可见性。根据前端开发的过程，动态路由需要满足以下性质：
+
+1. 动态路由因为是外部加载的，路由名称必须是固定的
+2. 前端项目是需要经过打包的，动态加载的项目也不能在打包时被遗漏
+3. 动态路由通常需要在外部进行配置，如何关联
+
+最终实现为如下效果：
+
+1. 使用import.global导入pages下的index.tsx 页面，这样可以保证所有页面被打包
+2. 路由可以采用远程加载的方式，可以通过路径映射为真实组件
+3. 只会读取`index.tsx`的文件作为可用路由
+
+### 类型定义
+
+1. 首先 props 中所有属性都是可选的，并且类型为 T ｜ Signal<T>，T 不能是联合类型
+2. 所有的 props 对象都要同步设置为 data 属性，这样可以保证始终是信号

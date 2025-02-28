@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import solid from "vite-plugin-solid";
 import path from "node:path";
-
 import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [
@@ -11,7 +10,12 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"),
+      $: path.resolve(__dirname, "src"),
+    },
+  },
+  build: {
+    rollupOptions: {
+      plugins: [],
     },
   },
   server: {
