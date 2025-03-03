@@ -39,6 +39,5 @@ jobs:
         with:
           project: "xuxin-vite"
           entrypoint: "./server.ts"
-          root: "dist"
           
           
