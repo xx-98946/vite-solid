@@ -1,0 +1,25 @@
+{
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass",
+    "class:list",
+    "baseClass",
+    "splitterClass"
+  ],
+  "tailwindCSS.experimental.classRegex": [
+    [
+      "(?:twMerge|twJoin|twClass|mergeClass|baseClass|toSignal)\\(([^\\);]*)[\\);]",
+      "[`'\"]([^'\"`,;]*)[`'\"]"
+    ]
+  ],
+  "emmet.includeLanguages": {
+    "javascriptreact": "html",
+    "typescriptreact": "html"
+  },
+  "typescript.suggest.paths": false,
+  "javascript.suggest.paths": false
+}

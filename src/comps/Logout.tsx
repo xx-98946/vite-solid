@@ -5,7 +5,7 @@ import { useNavigate } from "@solidjs/router";
 export default function Logout() {
   const navigate = useNavigate();
   function handleLogout() {
-    setRoutes([]);
+    setRoutes([])
     setStatus(false);
     navigate("/login");
   }

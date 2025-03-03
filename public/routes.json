@@ -1,23 +1,7 @@
 [
   {
-    "path": "/test",
-    "children": [
-      {
-        "path": "/:id",
-        "component": "$/pages/Test/Id",
-        "title": "测试校验参数",
-        "matchFilters": {}
-      },
-      {
-        "path": "/child",
-        "children": [
-          {
-            "path": "/desc",
-            "title": "子孙",
-            "component": "$/pages/Test/Child/Desc"
-          }
-        ]
-      }
-    ]
+    "path": "/navigate",
+    "component": "$/pages/Navigate",
+    "title": "网址导航"
   }
 ]
